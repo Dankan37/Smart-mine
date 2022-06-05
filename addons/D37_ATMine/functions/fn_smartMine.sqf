@@ -45,7 +45,7 @@ while {(alive _mine) and (_i < _nRounds)} do {
 		};
 
 		//Setup delay
-		sleep random 2;
+		//sleep random 2;
 		
 		//Remove one of the attached mines
 		_chosenProp = (_propArray select 0);
@@ -65,20 +65,20 @@ while {(alive _mine) and (_i < _nRounds)} do {
 		[_grenade, 90, 0] call BIS_fnc_setPitchBank;
 
 		//Values for lead (mathlab says they are optimal)
-		_v0 = 30;
+		_v0 = 24;
 		_dir = _grenade getDir _target;
 		_tgtSpeed = velocity _target;
 
 		//Simple lead algorithm
 		_grenade setVelocityModelSpace [_v0 * sin(_dir) + (_tgtSpeed select 0), 
-										_v0 * sin(60), 
+										_v0 * sin(45), 
 										-_v0 * cos(_dir) - (_tgtSpeed select 1)];
 		
 
 		_pos = position _grenade;
 		_time = time;
 		//Timeout, Distance and vertical velocity
-		while {(time - _time) < 3 and (_grenade distance2D _target > 5) and ((velocity _grenade) select 2 > 0)} do {
+		while {(time - _time) < 4 and (_grenade distance2D _target > 2) and ((velocity _grenade) select 2 > -5)} do {
 			//createSimpleObject ["A3\Structures_F_Heli\VR\Helpers\Sign_sphere10cm_F.p3d", _pos];
 			_pos = getPosASL _grenade;
 			sleep 0.05;
@@ -119,7 +119,7 @@ while {(alive _mine) and (_i < _nRounds)} do {
 		};
 
 		//Delay
-		sleep  3;
+		sleep  4;
 	};
 	sleep 0.1;
 };
